@@ -1,0 +1,162 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="dist/css/bootstrap.css">
+	</head>
+	<body onload="showdetail()">
+		<!------nav start here-------->
+		<div class="container">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Project name</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">Blog</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+		<!------nav end here-------->
+	</div>
+	
+		<div class="container">
+			<div class="col-sm-3 well">
+				<h3 style="text-align:center"><u>Student Details</u></h3>
+				<br>
+				<div class="form-group">
+					<h5>First Name</h5>
+				</div>
+				<div class="form-group">
+					<input type="text" id="fname"placeholder="First Name" class="form-control input-sm">
+				</div>
+				
+				<div class="form-group">
+					<h5>Last Name</h5>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control input-sm" placeholder="Last Name" id="lname">
+				</div>
+				
+				<div class="form-group">
+					<h5>Percentage</h5>
+				</div>
+				<div class="form-group">
+					<input type="number" class="form-control input-sm" id="per" placeholder="Percentage">
+				</div>
+				<br>
+				<div class="form-group">
+					<button class="btn btn-primary form-control" onclick="savedata()">Submit</button>
+				</div>
+			</div><!---------------well end here-------->
+			
+			<div class="col-sm-9">
+				<table class="table table-hover table-bordered">
+					<thead>
+						<tr class="success">
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Percentage</th>
+							<th id="result">Result</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody  id="studentlist">
+						<tr>
+							<td colspan="5" align="center">No Data</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<h4 id="msg" class="text-center"></h4>
+				</div>
+			</div>
+			
+		</div><!---------------container end here-------->
+		
+					<!---------------Javascript Programing start here-------->
+		<script>
+			var detail = [
+							{"fname":"Saurabh", "lname":"Srivastava", "per":"60", "result":"Pass"},
+							{"fname":"Ankit", "lname":"Srivastava", "per":"70", "result":"Pass"}	
+						  ]; 
+						  //alert(details.length)
+			function showdetail()
+			{
+				var data = "";
+				for(var i=0; i<detail.length; i++)
+				{
+					data = data+ "<tr>";
+					data = data+ "<td>" + detail[i].fname + "</td>";
+					data = data+ "<td>" + detail[i].lname + "</td>";
+					data = data+ "<td>" + detail[i].per + "</td>";
+					data = data+ "<td>" + detail[i].result + "</td>";
+					data = data+ "<td> <button class='btn btn-danger'onclick='delitem("+ i +")'>Delete </button></td>";
+					data = data+ "</tr>";
+				}
+				document.getElementById("studentlist").innerHTML = data;
+			
+			}
+			
+			function savedata()
+			{
+				var fname = document.getElementById("fname").value;
+				var lname = document.getElementById("lname").value;
+				var per = document.getElementById("per").value;
+				//var result = document.getElementById("result").value;
+				console.log(typeof result , result);
+				if(per <= 45)
+				{
+					result = document.getElementById("result").value = "Fail";
+				}
+				else if(per >=45 && per <= 50){
+					result = document.getElementById("result").value = "Promoted";
+				} 
+				else if(per >=50 && per<=79)
+				{
+					result = document.getElementById("result").value = "Pass";
+				} 
+				else 
+				{
+					result = document.getElementById("result").value = "Excelent";
+				}
+				
+				detail.push({"fname":fname, "lname":lname, "per":per , "result":result});
+
+				//result = "";
+			
+				document.getElementById("fname").value = "";
+				document.getElementById("lname").value = "";
+				document.getElementById("per").value = "";
+				document.getElementById("result").value = "";
+				showdetail();
+				document.getElementById("msg").innerHTML = "Details Added Successfully !";
+			}
+			
+			function delitem(index)
+			{
+			var status = confirm("Are you sure ?");
+				if(status==true)
+				{
+					detail.splice(index, 1);
+					showdetail();
+				}
+				document.getElementById("msg").innerHTML = "Details Deleted Successfully !";
+			}
+			
+			
+		</script>
+					<!---------------Javascript Programing end here-------->
+	</body>
+</html>
